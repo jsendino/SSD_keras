@@ -5,13 +5,13 @@ import numpy as np
 from sklearn.utils import shuffle
 
 
-def load_all_labels(aug_folders):
+def load_all_labels(aug_folders, boxes_file):
     aug_targets = pd.DataFrame(columns = ["img", "x","y","w","h", "id"])
     for folder in aug_folders:
         folder_name = os.path.basename(folder)
         
         print "Loading data augmentation folder:", folder_name
-        targets = pd.read_csv(folder + '/boxes_with_id.csv', names = ["img", "x","y","w","h", "id"])
+        targets = pd.read_csv(folder + '/' + boxes_file, names = ["img", "x","y","w","h", "id"])
         targets = targets.sort_values(by = "img")
         targets["img"] = folder_name + '/' + targets["img"]
         print "Number of examples:", len(targets)
